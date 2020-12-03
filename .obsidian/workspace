@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "k8s/general.md",
+            "file": "neural_networks/general.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/general.md",
+                "file": "neural_networks/general.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,8 +86,8 @@
     "collapsed": true
   },
   "lastOpenFiles": [
-    "k8s/general.md",
     "neural_networks/general.md",
+    "k8s/general.md",
     "Untitled.md",
     "k8s.md",
     "README.md"
