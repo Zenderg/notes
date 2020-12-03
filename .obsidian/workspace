@@ -1,0 +1,93 @@
+{
+  "main": {
+    "id": "22e9e9420936a727",
+    "type": "split",
+    "children": [
+      {
+        "id": "ae59e59a93aed7c6",
+        "type": "leaf",
+        "active": true,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "neural_networks/general.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "04a1d9a059d6e0e5",
+    "type": "split",
+    "children": [
+      {
+        "id": "8cf5b1201d12feca",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ab3f7b36bd5a45d4",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "1cf2c78913cf0624",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "107be72644adf30a",
+    "type": "split",
+    "children": [
+      {
+        "id": "ac159e56487b7d67",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "204df5097ca33038",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "neural_networks/general.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "lastOpenFiles": [
+    "neural_networks/general.md",
+    "Untitled.md",
+    "README.md"
+  ]
+}
