@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "neural_networks/general.md",
+            "file": "k8s/general.md",
             "mode": "source"
           }
         }
@@ -40,7 +40,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "tag:#Статьи",
+                "query": "",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -49,8 +49,7 @@
               }
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -70,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "neural_networks/general.md",
+                "file": "k8s/general.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -87,8 +86,8 @@
     "collapsed": true
   },
   "lastOpenFiles": [
-    "neural_networks/general.md",
     "k8s/general.md",
+    "neural_networks/general.md",
     "Untitled.md",
     "k8s.md",
     "README.md"
