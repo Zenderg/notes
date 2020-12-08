@@ -10,7 +10,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "k8s/objects/names&ids.md",
+            "file": "k8s/objects/general.md",
             "mode": "source"
           }
         }
@@ -69,7 +69,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "k8s/objects/names&ids.md",
+                "file": "k8s/objects/general.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -86,15 +86,15 @@
     "collapsed": true
   },
   "lastOpenFiles": [
+    "k8s/objects/general.md",
+    "Untitled.md",
+    "k8s/objects/names&ids.md",
     "k8s/objects/Untitled.md",
     "k8s/objects/management.md",
     "k8s/components.md",
-    "k8s/objects/general.md",
     "k8s/objects/objects.md",
     "k8s/Untitled.md",
     "k8s/objects.md",
-    "k8s/general.md",
-    "neural_networks/general.md",
-    "Untitled.md"
+    "k8s/general.md"
   ]
 }
