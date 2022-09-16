@@ -101,6 +101,7 @@ EMPTY.subscribe({
 ```
 
 > ~~https://rxjs.dev/api/index/function/empty~~
+
 > https://rxjs.dev/api/index/const/EMPTY
 
 ## from
