@@ -3,7 +3,7 @@
 ### Содержание
 
 * [combineLatest](#combinelatest)
-* [concat](#concat)
+* [concat | concatWith](#concat)
 * [forkJoin](#forkjoin)
 * [merge](#merge)
 * [partition](#partition)
@@ -35,6 +35,37 @@ observable2.next(2);
 > https://rxjs.dev/api/index/function/combineLatest
 
 ## concat
+
+Задеприкейчен, теперь говорят вместо него использовать `concatWith`.
+
+`concatWith` - пропускает через себя ивенты исходного обзервабла, после того как исходный закрывается (и только после этого), начинает передавать ивенты из переданного в себя обзервабла:
+```js
+const clicks$ = fromEvent(document, 'click');
+const moves$ = fromEvent(document, 'mousemove');
+
+clicks$.pipe(
+  map(() => 'click'),
+  take(1),
+  concatWith(
+    moves$.pipe(
+      map(() => 'move')
+    )
+  )
+)
+.subscribe(x => console.log(x));
+
+// 'click'
+// 'move'
+// 'move'
+// 'move'
+// ...
+```
+
+Оно может принимать в себя несколько обзерваблов `concatWith(obs1, obs2, ...)`, но ивенты будут браться из следующих, после того как предыдущий обзервабл будет завершен.
+
+> ~~https://rxjs.dev/api/operators/concat~~
+
+> https://rxjs.dev/api/operators/concatWith
 
 ## forkJoin
 
