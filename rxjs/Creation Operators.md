@@ -6,13 +6,13 @@
 * [bindCallback](#bindcallback)
 * [bindNodeCallback](#bindnodecallback)
 * [defer](#defer)
-* [empty](#empty)
+* [empty | EMPTY](#empty)
 * [from](#from)
 * [fromEvent](#fromevent)
 * [fromEventPattern](#fromeventpattern)
 * [generate](#generate)
 * [interval](#interval)
-* [of](#of)
+* [of | scheduled](#of)
 * [range](#range)
 * [throwError](#throwerror)
 * [timer](#timer)
@@ -248,7 +248,7 @@ of(10, 20, 30).subscribe({
 // the end
 ```
 
-Вообще написано, что в 8 версии будет задипрекейчено, поэтому лучше использовать `scheduled`... Но там в него надо еще обязательно свой скедулар прокидывать, как то не особо удобно. Думаю все таки лучше будет использовать альтернативу [from](#from).
+Вообще написано, что он задипрекейчен, поэтому лучше использовать `scheduled`... Но там в него надо еще обязательно свой скедулар прокидывать, как то не особо удобно. Думаю все таки лучше будет использовать альтернативу [from](#from).
 
 > ~~https://rxjs.dev/api/index/function/of~~
 
