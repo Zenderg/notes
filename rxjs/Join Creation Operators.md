@@ -7,7 +7,7 @@
 * [forkJoin](#forkjoin)
 * [merge](#merge)
 * [partition](#partition)
-* [race](#race)
+* [race | raceWith](#race)
 * [zip](#zip)
 
 ## combineLatest
@@ -100,8 +100,55 @@ observable.subscribe({
 
 ## merge
 
+Принимает в себя через запятую сколько угодно обзерваблов и склеивает их и порождает один, который отправляет ивент в подписку, когда в один из перечисленных обзерваблов ивент прилетает.
+
+```js
+const clicks = fromEvent(document, 'click');
+const timer = interval(1000);
+
+const clicksOrTimer = merge(clicks, timer);
+
+clicksOrTimer.subscribe(x => console.log(x));
+// Каждую секунду через интервал будут отправляться ивенты в подписку
+// Также, если будут клики на странице, тогда ивент о клике тоже будет
+// прилетать в подписку
+```
+
+А еще у него можно выставить конкурентность последним параметром. Т.е. какое максимальное кол-во обзерваблов будут прослушиваться. Переход на прослушку других в этом случае будет тогда, когда один из прослушиваемых завершится.
+
+> https://rxjs.dev/api/index/function/merge
+
 ## partition
 
+Разбивает один обзервабл на массив из 2 обзерваблов по определенному кондишену. В первом обзервабле будут трушные ивенты, во втором не оч.
+
+По сути оно там просто делает 2 обзервабла и добавляет к ним оператор `filter`.
+
+```js
+const observableValues = of(1, 2, 3, 4, 5, 6);
+const [evens$, odds$] = partition(observableValues, value => value % 2 === 0);
+ 
+odds$.subscribe(x => console.log('odds', x));
+evens$.subscribe(x => console.log('evens', x));
+ 
+// Logs:
+// odds 1
+// odds 3
+// odds 5
+// evens 2
+// evens 4
+// evens 6
+```
+
+> https://rxjs.dev/api/index/function/partition
+
 ## race
+
+Задеприкейтили, превратили в оператор `raceWith`.
+
+
+> ~~https://rxjs.dev/api/index/function/race~~
+
+> https://rxjs.dev/api/operators/raceWith
 
 ## zip
