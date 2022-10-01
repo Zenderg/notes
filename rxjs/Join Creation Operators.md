@@ -146,9 +146,47 @@ evens$.subscribe(x => console.log('evens', x));
 
 Задеприкейтили, превратили в оператор `raceWith`.
 
+В него можно прокинуть несколько обзерваблов. В какой прилетит ивент раньше, с таким ивентом и будет дальше вестись работа. Все остальные обзерваблы при этом скипауются.
+
+```js
+const obs1 = timer(7000).pipe(map(() => 'slow one'));
+const obs2 = timer(3000).pipe(map(() => 'fast one'));
+const obs3 = timer(5000).pipe(map(() => 'medium one'));
+ 
+obs1
+  .pipe(
+    tap(() => console.log("im tap")),
+    raceWith(obs2, obs3),
+    tap(() => console.log("im tap 2")),
+    )
+  .subscribe(winner => console.log(winner));
+  
+// im tap 2
+// fast one
+```
+
 
 > ~~https://rxjs.dev/api/index/function/race~~
 
 > https://rxjs.dev/api/operators/raceWith
 
 ## zip
+
+Принимает в себя несколько обзерваблов и порождает новый. Если на него подписаться, то ивенты в подписку будут попадать только в том случае, если все остальные обзерваблы отправили по ивенту.
+
+```js
+const age$ = of(27, 25, 29, 36);
+const name$ = of('Foo', 'Bar', 'Beer');
+const isDev$ = of(true, true, false);
+ 
+zip(age$, name$, isDev$).pipe(
+  map(([age, name, isDev]) => ({ age, name, isDev }))
+)
+.subscribe(x => console.log(x));
+
+// { age: 27, name: 'Foo', isDev: true }
+// { age: 25, name: 'Bar', isDev: true }
+// { age: 29, name: 'Beer', isDev: false }
+```
+
+> https://rxjs.dev/api/index/function/zip
