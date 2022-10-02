@@ -115,7 +115,7 @@ result.subscribe(x => console.log(x));
 
 В доке говорят это хрень какая то, будет задеприкейчено, поэтому юзайте просто [`concatMap`](#concatmap).
 
-> ~~~https://rxjs.dev/api/operators/concatMapTo~~~
+> ~~https://rxjs.dev/api/operators/concatMapTo~~
 
 ## exhaust
 
