@@ -48,11 +48,51 @@ buffered.subscribe(x => console.log(x));
 
 ## bufferCount
 
+Принимает в себя 2 параметра. Первый отвечает за размер буфера. Второй отвечает за кол-во ивентов, которые будут прилетать в буфер перед тем, как он отправит их дальше (если этот параметр больше первого, то буфер отправит дальше по пайпу только последние ивенты, которые он может в себя вместить). Как только буфер будет заполнен он отправит массив ивентов дальше по пайпу, и затем обнулит его (только если у вас не выставлен специфичный второй параметр).
+
+```js
+const clicks = fromEvent(document, 'click');
+const buffered = clicks.pipe(bufferCount(2));
+
+buffered.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/bufferCount
+
 ## bufferTime
+
+Принимает в себя время в мс и каждый заданный интервал отправляет массив из предыдущих элементов дальше по пайпу.
+
+```js
+const clicks = fromEvent(document, 'click');
+const buffered = clicks.pipe(bufferTime(1000));
+
+buffered.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/bufferTime
 
 ## bufferToggle
 
+Оч сложна чот...
+
+> https://rxjs.dev/api/operators/bufferToggle
+
 ## bufferWhen
+
+Принимает в себя функцию, которая должна возвращать обзервабл. Когда ивент прилетит в возвращаемый обзервабл, тогда закроется буфер и пропустит все ивенты дальше по пайпу.
+
+```js
+const clicks = fromEvent(document, 'click');
+const buffered = clicks.pipe(
+  bufferWhen(() => interval(1000 + Math.random() * 4000))
+);
+buffered.subscribe(x => console.log(x));
+```
+
+В доке пишут, что это хрень отвечает за логику того, когда отправлять ивенты в буфер, когда закрывать его, обнулять и пр. Но передавать функцию в него можно только на закрытие буфера. В общем странно как то.
+
+> https://rxjs.dev/api/operators/bufferWhen
 
 ## concatMap
 
