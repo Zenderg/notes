@@ -9,7 +9,7 @@
 * [bufferWhen](#bufferwhen)
 * [concatMap](#concatmap)
 * [concatMapTo](#concatmapto)
-* [exhaust](#exhaust)
+* [exhaust | exhaustAll](#exhaust)
 * [exhaustMap](#exhaustmap)
 * [expand](#expand)
 * [groupBy](#groupby)
@@ -119,9 +119,71 @@ result.subscribe(x => console.log(x));
 
 ## exhaust
 
+Переименовали в `exhaustAll`, юзайте его.
+
+Как я понял он оперирует ивентами, которые являются обзерваблами. Причем ивенты из изначального обзервабла будут игнорироваться, если предыдуший ивент (который является обзерваблом) еще не завершился.
+
+```js
+const clicks = fromEvent(document, 'click');
+const higherOrder = clicks.pipe(
+  map(() => interval(1000).pipe(take(5)))
+);
+const result = higherOrder.pipe(exhaustAll());
+
+result.subscribe(x => console.log(x));
+```
+
+В данном кейсе, при первом клике ивент будет преобразован в обзервабл (`interval`), который каждую секунду будет отправлять 5 ивентов, а потом завершится. Если он еще не завершился, а ивенты кликов будут приходить, то он будет их все игноирировать, пока не завершить предыдущий обзервабл (`interval`).
+
+> ~~https://rxjs.dev/api/operators/exhaust~~
+
+> https://rxjs.dev/api/operators/exhaustAll
+
 ## exhaustMap
 
+В общем... он похож на [`exhaust`](#exhaust), делает все то же самое. За тем лишь исключением, что используется в конкретном месте.
+
+```js
+const clicks = fromEvent(document, 'click');
+const result = clicks.pipe(
+  exhaustMap(() => interval(1000).pipe(take(5)))
+);
+
+result.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/exhaustMap
+
 ## expand
+
+Должен возвращать обзервабл. При каждом отправлении ивента из возвращаемого обзервабла, предыдущий ивент из него складывается рекурсивно с текущим. Звучит странно, но примерно так я и понял.
+
+```js
+const clicks = fromEvent(document, 'click');
+
+const powersOfTwo = clicks.pipe(
+  map(() => 1),
+  expand(x => of(2 * x).pipe(delay(1000))),
+  take(10)
+);
+
+powersOfTwo.subscribe(x => console.log(x));
+
+// 1
+// 2
+// 4
+// 8
+// 16
+// 32
+// 64
+// 128
+// 256
+// 512
+```
+
+За более детальный объяснением можно сходить вот сюда: https://ncjamieson.com/understanding-expand/
+
+> https://rxjs.dev/api/operators/expand
 
 ## groupBy
 
