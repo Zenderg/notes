@@ -187,9 +187,57 @@ powersOfTwo.subscribe(x => console.log(x));
 
 ## groupBy
 
+Оператор, который делает группировку ивентов по заданному ключу. Принимает в себя функцию, которая должна возвращать ключ для каждого элемента. После завершения обзервабла `groupBy` отправляет ивенты (которые будут обзерваблами), для каждого ключа будет отправляться свой ивент, который содержит в себе все элементы собранные по одному и тому же ключу.
+
+```js
+of(
+  { id: 1, name: 'JavaScript' },
+  { id: 2, name: 'Parcel' },
+  { id: 2, name: 'webpack' },
+  { id: 1, name: 'TypeScript' },
+  { id: 3, name: 'TSLint' }
+).pipe(
+  groupBy(p => p.id),
+  mergeMap(group$ => group$.pipe(reduce((acc, cur) => [...acc, cur], [])))
+)
+.subscribe(p => console.log(p));
+ 
+// displays:
+// [{ id: 1, name: 'JavaScript' }, { id: 1, name: 'TypeScript'}]
+// [{ id: 2, name: 'Parcel' }, { id: 2, name: 'webpack'}]
+// [{ id: 3, name: 'TSLint' }]
+```
+
+> https://rxjs.dev/api/operators/groupBy
+
 ## map
 
+Работает аналогично методу в джсе. Трансформирует значение для каждого пришедшего ивента и передает его дальше по пайпу.
+
+```js
+const obs = new Subject()
+
+obs.pipe(
+  map(x => x * 10)
+)
+.subscribe(p => console.log(p));
+
+obs.next(1)
+obs.next(2)
+obs.next(3)
+
+// 10
+// 20
+// 30
+```
+
+> https://rxjs.dev/api/operators/map
+
 ## mapTo
+
+Задеприкейчено. Говорят лучше просто [`map`](#map) юзать. `mapTo` делает то же самое, но возвращает всегда только одно и то же значение для каждого ивента.
+
+> ~~https://rxjs.dev/api/operators/mapTo~~
 
 ## mergeMap
 
