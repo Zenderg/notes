@@ -241,9 +241,50 @@ obs.next(3)
 
 ## mergeMap
 
+Возвращает обзервабл для каждого из ивентов. При этом от обзервабла, созданного предыдущем ивентом, оно не отписыватеся (это важно).
+
+```js
+const letters = of('a', 'b', 'c');
+const result = letters.pipe(
+  tap(() => console.log("first tap")),
+  mergeMap(x => interval(1000).pipe(map(i => x + i)))
+);
+ 
+result.subscribe(x => console.log(x));
+// first tap
+// a0
+// b0
+// c0
+// a1
+// b1
+// c1
+// ...
+// будет бесконечно каждую секунду отправлять abc 
+```
+
+> https://rxjs.dev/api/operators/mergeMap
+
 ## mergeMapTo
 
+Задеприкейчено. Лучше просто использовать [`mergeMap`](#mergemap). Делает то же самое, но возвращает для каждого ивента один и тот же обзервабл.
+
+> ~~https://rxjs.dev/api/operators/mergeMapTo~~
+
 ## mergeScan
+
+Работает также как `reduce` в джсе. Тоже есть аккамулятор. Срабатывает на каждый пришедший ивент и должен возвращаться обзервабл. В подписку попадает значение из аккамулятора.
+
+```js
+const click$ = fromEvent(document, 'click').pipe(map(() => 1));
+
+const count$ = click$.pipe(
+  mergeScan((acc, one) => of(acc + one), 0)
+);
+ 
+count$.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/mergeScan
 
 ## pairwise
 
