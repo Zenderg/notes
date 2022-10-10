@@ -288,11 +288,37 @@ count$.subscribe(x => console.log(x));
 
 ## pairwise
 
-## partition
+Объединяет предыдущий ивент и текущий в массив из двух элементов. Работает только после получения двух ивентов.
+
+```js
+const clicks = fromEvent(document, 'click').pipe(pairwise());
+ 
+clicks.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/pairwise
 
 ## pluck
 
+Задеприкейчено. Юзайте просто [`map`](#map) и не парьтесь.
+
+> ~~https://rxjs.dev/api/operators/pluck~~
+
 ## scan
+
+Работает аналогично `reduce` в джсе. Отправляет аккамулятор на каждый пришедший ивент.
+
+```js
+const numbers$ = of(1, 2, 3);
+ 
+numbers$
+  .pipe(
+    scan((total, n) => total + n)
+  )
+  .subscribe(console.log);
+```
+
+> https://rxjs.dev/api/operators/scan
 
 ## switchScan
 
