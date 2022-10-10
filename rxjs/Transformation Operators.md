@@ -316,6 +316,10 @@ numbers$
     scan((total, n) => total + n)
   )
   .subscribe(console.log);
+  
+// 1
+// 3
+// 6
 ```
 
 > https://rxjs.dev/api/operators/scan
