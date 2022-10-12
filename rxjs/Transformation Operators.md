@@ -366,10 +366,60 @@ switched.subscribe(x => console.log(x));
 
 ## window
 
+Он ведет себя как [`buffer`](https://github.com/Zenderg/notes/blob/main/rxjs/Transformation%20Operators.md#buffer). За тем лишь исключением, что возвращает не массив ивентов, а обзервабл с ивентами.
+
+Допустим использование буфера выглядело бы как то так:
+
+```js
+const clicks = interval(500);
+const result = clicks.pipe(
+  buffer(interval(2000)),
+);
+
+result.subscribe(x => console.log(x));
+
+// [1, 2, 3, 4]
+// [5, 6, 7, 8]
+// ...
+// каждые 2 секунды
+```
+
+С использованием `window` это можно было бы написать вот так:
+
+```js
+const clicks = interval(500);
+const result = clicks.pipe(
+  window(interval(2000)),
+  mergeMap(obs => obs.pipe(toArray()))
+);
+
+result.subscribe(x => console.log(x));
+```
+
+Короче все что написано с `window` работает как все, что написано с `buffer`, только делает это не через массивы, а через обзерваблы.
+
+> https://rxjs.dev/api/operators/window
+
 ## windowCount
+
+Смотреть на [`window`](#window).
+
+> https://rxjs.dev/api/operators/windowCount
 
 ## windowTime
 
+Смотреть на [`window`](#window).
+
+> https://rxjs.dev/api/operators/windowTime
+
 ## windowToggle
 
+Смотреть на [`window`](#window).
+
+> https://rxjs.dev/api/operators/windowToggle
+
 ## windowWhen
+
+Смотреть на [`window`](#window).
+
+> https://rxjs.dev/api/operators/windowWhen
