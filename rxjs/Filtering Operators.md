@@ -177,15 +177,172 @@ of(
 > https://rxjs.dev/api/operators/distinctUntilKeyChanged
 
 ## elementAt
+
+Берет определенный по индексу ивент. Соответственно принимает в себя номер индекса. Вторым параметром можно еще прокинуть дефолтное значение.
+
+```js 
+const clicks = fromEvent(document, 'click');
+const result = clicks.pipe(elementAt(2));
+
+result.subscribe(x => console.log(x));
+
+// Results in:
+// click 1 = nothing
+// click 2 = nothing
+// click 3 = MouseEvent object logged to console
+```
+
+> https://rxjs.dev/api/operators/elementAt
+
 ## filter
+
+Работает как обычный фильтр в джсе. Пропускает дальше по пайпу только те ивенты, которые прошли описанное условие.
+
+```js
+const div = document.createElement('div');
+div.style.cssText = 'width: 200px; height: 200px; background: #09c;';
+document.body.appendChild(div);
+
+const clicks = fromEvent(document, 'click');
+const clicksOnDivs = clicks.pipe(filter(ev => (<HTMLElement>ev.target).tagName === 'DIV'));
+
+clicksOnDivs.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/filter
+
 ## first
+
+Берет первый ивент и завершает подписку, если вызван без параметров. Первым параметром можно передать функцию, которая должна возвращать булево значение для каждого элемента, если `true`, тогда значение пройдет дальше по пайпу. Вторым параметром можно передать дефолтное значение. Я так понял оно нужно, когда выкидывается ошибка из исходного обзервабла, или когда ивент, совпадающий по описанному условию так и не пришел, а обзервабл уже завершился.
+
+```js
+const clicks = fromEvent(document, 'click');
+const result = clicks.pipe(first());
+
+result.subscribe(x => console.log(x));
+
+// Отправит один ивент клика, а затем завершится
+```
+
+> https://rxjs.dev/api/operators/first
+
 ## ignoreElements
+
+Игнорирует любые ивенты и не пускает их дальше по пайпу. За исключением завершения обзервабла или ошибки.
+
+```js
+of('you', 'talking', 'to', 'me')
+  .pipe(ignoreElements())
+  .subscribe({
+    next: word => console.log(word),
+    error: err => console.log('error:', err),
+    complete: () => console.log('the end'),
+  });
+ 
+// result:
+// 'the end'
+```
+
+> https://rxjs.dev/api/operators/ignoreElements
+
 ## last
+
+Работает как и [`first`](#first). Принимает в себя те же параметры (функцию кондишн и дефолтное значение). Но отправляет ивент дальше по пайпу только тогда, когда обзервабл завершится.
+
+```js
+const source = from(['x', 'y', 'z']);
+const result = source.pipe(last());
+
+result.subscribe(value => console.log(`Last alphabet: ${ value }`));
+
+// Outputs
+// Last alphabet: z
+```
+
+> https://rxjs.dev/api/operators/last
+
 ## sample
+
+Отправляет последний пришедший ивент из исходного обзервабла дальше по пайпу только тогда, когда в обзервабл, который передается параметром в этот оператор, придет ивент.
+
+```js
+const seconds = interval(1000);
+const clicks = fromEvent(document, 'click');
+const result = seconds.pipe(sample(clicks));
+
+result.subscribe(x => console.log(x));
+
+// При клике будет отправлять кол-во секунд
+// Которые прошли с момента старта подписки
+```
+
+> https://rxjs.dev/api/operators/sample
+
 ## sampleTime
+
+Отправляет последний пришедший ивент из исходного обзервабла дальше по пайпу через заданное кол-во мс.
+
+```js
+const clicks = fromEvent(document, 'click');
+const result = clicks.pipe(sampleTime(1000));
+
+result.subscribe(x => console.log(x));
+
+// Кажду секунду отправляет последний совершенный клик
+```
+
+> https://rxjs.dev/api/operators/sampleTime
+
 ## single
+
+Отправляет один ивент по завершению обзервабла, если функция кондишн не указывается (если придет два ивента, то выбросит ошибку). Если функция указана, то по завершению обзервабла отправит дальше по пайпу ивент, который попадает под описанное условие. Если таких ивентов два или их нет в принципе, то выдаст ошибку.
+
+```js
+const source1 = of(
+ { name: 'Ben' },
+ { name: 'Tracy' },
+ { name: 'Laney' },
+ { name: 'Lily' }
+);
+ 
+source1
+  .pipe(single(x => x.name.startsWith('B')))
+  .subscribe(x => console.log(x));
+  
+// Emits 'Ben'
+```
+
+> https://rxjs.dev/api/operators/single
+
 ## skip
+
+Игнорирует заданное кол-во ивентов.
+
+```js
+const source = interval(500);
+const result = source.pipe(skip(10));
+
+result.subscribe(value => console.log(value));
+// output: 10...11...12...13...
+```
+
+> https://rxjs.dev/api/operators/skip
+
 ## skipLast
+
+Игнорирует заданное кол-во последних ивентов.
+
+```js
+const seconds = interval(1000);
+const result = seconds.pipe(skipLast(2));
+
+result.subscribe(x => console.log(x));
+
+// Начнет отправлять ивенты через 2 секунды
+```
+
+> https://rxjs.dev/api/operators/skipLast
+
 ## skipUntil
 ## skipWhile
 ## take
