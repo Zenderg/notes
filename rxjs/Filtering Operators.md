@@ -344,10 +344,126 @@ result.subscribe(x => console.log(x));
 > https://rxjs.dev/api/operators/skipLast
 
 ## skipUntil
+
+Принимает в себя обзервабл. Будет скипать ивенты из исходного обзервабла до тех пор, пока в передаваемый не придет хотя бы один ивент.
+
+```js
+const intervalObservable = interval(1000);
+const click = fromEvent(document, 'click');
+
+const emitAfterClick = intervalObservable.pipe(
+  skipUntil(click)
+);
+
+// clicked at 4.6s. output: 5...6...7...8........
+emitAfterClick.subscribe(value => console.log(value));
+```
+
+> https://rxjs.dev/api/operators/skipUntil
+
 ## skipWhile
+
+Принимает в себя функцию, которая должна возвращать булево значение для каждого элемента. Пока функция возвращает `true` все ивенты из сходного обзервабла будут игнорироваться. Если один раз вернет `false`, то игнорирование прекращается.
+
+```js
+const source = from(['Green Arrow', 'SuperMan', 'Flash', 'SuperGirl', 'Black Canary'])
+const example = source.pipe(skipWhile(hero => hero !== 'SuperGirl'));
+
+example.subscribe(femaleHero => console.log(femaleHero));
+
+// output: SuperGirl, Black Canary
+```
+
+> https://rxjs.dev/api/operators/skipWhile
+
 ## take
+
+Пропускает по пайпу заданное кол-во первых ивентов, а затем завершает подписку.
+
+```js
+const intervalCount = interval(1000);
+const takeFive = intervalCount.pipe(take(5));
+
+takeFive.subscribe(x => console.log(x));
+ 
+// Logs:
+// 0
+// 1
+// 2
+// 3
+// 4
+```
+
+> https://rxjs.dev/api/operators/take
+
 ## takeLast
+
+Пропускает по пайпу заданное кол-во последних ивентов. Не будет работать, если исходный обзервабл никогда не завершится.
+
+```js
+const many = range(1, 100);
+const lastThree = many.pipe(takeLast(3));
+
+lastThree.subscribe(x => console.log(x));
+
+// 98
+// 99
+// 100
+```
+
+> https://rxjs.dev/api/operators/takeLast
+
 ## takeUntil
+
+Принимает в себя обзервабл. Пропускает значения дальше по пайпу до тех пор, пока в передаваемый обзервабл не придет хотя бы один ивент. После этого завершает подписку там, где находится этот оператор.
+
+```js
+const source = interval(1000);
+const clicks = fromEvent(document, 'click');
+const result = source.pipe(takeUntil(clicks));
+
+result.subscribe(x => console.log(x));
+```
+
+Будет отправлять ивенты каждую секунду, пока кто нибудь не кликнет.
+
+> https://rxjs.dev/api/operators/takeUntil
+
 ## takeWhile
+
+Принимает в себя функцию, которая должна возвращать булево значение для каждого элемента. Пока функция возвращает `true` все ивенты из сходного обзервабла будут проходить дальше. Если один раз вернет `false`, то подписка завершается.
+
+```js
+const clicks = fromEvent<PointerEvent>(document, 'click');
+const result = clicks.pipe(takeWhile(ev => ev.clientX > 200));
+
+result.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/takeWhile
+
 ## throttle
+
+Принимает в себя обзервабл. Из сурс обзервабла принимает только первый ивент, остальные будет игнорировать, пока в передаваемый обзервабл не придет какой то ивент. Короче то же самое что и [`audit`](#audit), только работает не с последним ивентом, а с первым.
+
+```js
+const clicks = fromEvent(document, 'click');
+const result = clicks.pipe(throttle(() => interval(1000)));
+
+result.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/throttle
+
 ## throttleTime
+
+То же самое что и обычный [`throttle`](#throttle), только можно указывать сразу кол-во мс.
+
+```js
+const clicks = fromEvent(document, 'click');
+const result = clicks.pipe(throttleTime(1000));
+
+result.subscribe(x => console.log(x));
+```
+
+> https://rxjs.dev/api/operators/throttleTime
