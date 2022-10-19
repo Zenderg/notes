@@ -8,3 +8,4 @@
 * [Порождающие новые обзерваблы из нескольких обзерваблов](https://github.com/Zenderg/notes/blob/main/rxjs/Join%20Creation%20Operators.md)
 * [Трансформации](https://github.com/Zenderg/notes/blob/main/rxjs/Transformation%20Operators.md)
 * [Фильтрации](https://github.com/Zenderg/notes/blob/main/rxjs/Filtering%20Operators.md)
+* [Объединения нескольких обзерваблов](https://github.com/Zenderg/notes/blob/main/rxjs/Join%20Operators.md)
