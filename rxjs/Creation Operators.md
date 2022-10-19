@@ -29,7 +29,7 @@ ajax("https://api.github.com/users?per_page=5").subscribe((users) => {
 })
 ```
 
- Если хочеца сразу получить данные из запроса в подписку, тогда:
+ Если хочеца сразу получить данные из запроса в подписку в джсоне, тогда:
  ```js
 ajax.getJSON("https://api.github.com/users?per_page=5").subscribe((users) => {
   console.log(users)
